@@ -1,6 +1,6 @@
 using System;
 
-namespace trekkingcr.Models
+namespace trekkingadventurescr.Models
 {
     public class ErrorViewModel
     {

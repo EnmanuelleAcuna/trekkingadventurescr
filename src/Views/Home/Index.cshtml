@@ -1,8 +1,146 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+  ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="cover">
+  <div class="text-center">
+    <h1 class="display-4 text-light">Adventure is an attitude!</h1>
+    <h2 class="title text-light">Explore Costa Rica</h2>
+    <p class="font-weight-normal text-light subtitle">The best travel agency of Costa Rica</p>
+    <a class="btn btn-lg btn-light font-weight-normal rounded mt-4" asp-controller="Home" asp-action="Tours"
+      role="button">See our tours</a>
+  </div>
+
+  <div class="wave1"></div>
+  <div class="wave2"></div>
+</section>
+
+<div class="container">
+  <div class="jumbotron bg-white">
+    <div class="text-center">
+      <h2 class="title text-dark">Discover!</h2>
+      <p class="lead subtitle">Amazing tours and fun adventures are waiting for you.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <img src="~/images/web_optimized/logo_big.png" class="d-block w-100 m-auto px-5" alt="Logo TREKKINGADVENTURESCR">
+    </div>
+
+    <div class="col-sm-6 col-md-4">
+      <img src="~/images/web_optimized/sello_pyme.png" class="d-block w-100 m-auto px-5" alt="Logo Sello PYME CR">
+    </div>
+
+    <div class="col-sm-12 col-md-4">
+      <img src="~/images/web_optimized/sello_safe_together_swiss_tropical.png" class="d-block w-100 m-auto px-5"
+        alt="Swiss Safe Together">
+    </div>
+
+    @* <div class="col-sm-12 col-md-1 text-center">
+      <a href="https://www.facebook.com/trekkingcostarica-103074814741258" target="_blank" alt="Facebook"
+      class="text-decoration-none text-dark"><i class="fab fa-facebook-square fa-4x"></i></a>
+      <a href="https://www.instagram.com/trekking.adventurescr" target="_blank" alt="Instagram"
+      class="text-decoration-none text-dark"><i class="fab fa-instagram-square fa-4x"></i></a>
+      </div> *@
+  </div>
+
+  <div class="jumbotron bg-white">
+    <div class="title text-center">
+      <h2 class="title text-dark">We only need you!</h2>
+      <p class="lead subtitle">Treat yourself and see our offers, book a unique tour at a great price and start packing
+        for your memorable vacation.</p>
+    </div>
+  </div>
+
+  <div class="row mb-5 pb-5">
+    <div class="col-sm-12 col-md-4 text-center">
+      <img class="img img-fluid rounded" src="~/images/web_optimized/photo_23.jpg" alt="Pool">
+      <h4 class="mt-4">Half day tours</h4>
+      <p class="font-weight-normal">You don’t have much time? or you don’t want to travel so far? you are in the right
+        place.</p>
+    </div>
+
+    <div class="col-sm-12 col-md-4 text-center">
+      <img class="img img-fluid rounded" src="~/images/web_optimized/photo_19.jpg" alt="Pool">
+      <h4 class="mt-4">Hotels and Resorts</h4>
+      <p class="font-weight-normal">Don’t waste your time looking in many places, we do it for you, the best prices and
+        rates. we book the best destination of Costa Rica.</p>
+    </div>
+
+    <div class="col-sm-12 col-md-4 text-center">
+      <div id="carouselExampleControls" class="carousel slide m-auto" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="~/images/web_optimized/photo_16.jpg" class="d-block w-100 rounded" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="~/images/web_optimized/photo_21.jpg" class="d-block w-100 rounded" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="~/images/web_optimized/photo_3.jpg" class="d-block w-100 rounded" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </button>
+      </div>
+      <h4 class="mt-4">A brief gallery</h4>
+      <p class="font-weight-normal">Watch the beauty of Costa Rica.</p>
+    </div>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-12">
+      <h2 class="title text-dark">Featured tours!</h2>
+      <p class="lead subtitle">Check out our best tours.</p>
+    </div>
+
+    <div class="col-12">
+      <div class="card-deck">
+        <div class="card bg-light border-0 box-shadow">
+          <img src="~/images/web_optimized/photo_23.jpg" alt="Tour image" class="card-img-top img img-fluid rounded" />
+          <div class="card-body">
+            <h4 class="card-title pricing-card-title text-dark">Catarata Rio Agrio</h4>
+            @* <h1 class="card-title pricing-card-title text-info">$ 565</h1> *@
+            <p class="lead">
+              Este es un súper tour.
+            </p>
+          </div>
+        </div>
+
+        <div class="card bg-light border-0 box-shadow">
+          <img src="~/images/web_optimized/photo_38.jpg" alt="Tour image" class="card-img-top img img-fluid rounded" />
+          <div class="card-body">
+            <h4 class="card-title pricing-card-title text-dark">Parque Nacional Manuel Antonio</h4>
+            @* <h1 class="card-title pricing-card-title text-info">$15</h1> *@
+            <p class="lead">
+              Este es un tour genial.
+            </p>
+          </div>
+        </div>
+
+        <div class="card bg-light border-0 box-shadow">
+          <img src="~/images/web_optimized/photo_37.jpg" alt="Tour image" class="card-img-top img img-fluid rounded" />
+          <div class="card-body">
+            <h4 class="card-title pricing-card-title text-dark">Bahía Ballena</h4>
+            @* <h1 class="card-title pricing-card-title text-info">$29</h1> *@
+            <p class="lead">
+              Este es un tour balato.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-2">
+      <a class="btn btn-lg btn-outline-dark font-weight-normal rounded" asp-controller="Home" asp-action="Tours"
+        role="button">See all our tours</a>
+    </div>
+  </div>
 </div>

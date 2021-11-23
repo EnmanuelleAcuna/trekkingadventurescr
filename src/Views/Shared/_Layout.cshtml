@@ -1,48 +1,105 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - trekkingcr</title>
+    <title>@ViewData["Title"] - TREKKINGADVENTURESCR</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
+
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar fixed-top navbar-expand-sm navbar-toggleable-sm navbar-light bg-white">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">trekkingcr</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.png" width="30" height="30" class="d-inline-block align-top"
+                        alt="Logo TREK-KING ADVENTURES CR" />
+                    <span class="font-weight-bolder">TREK-KING ADVENTURES CR</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a href="https://www.facebook.com/trekkingcostarica-103074814741258" target="_blank"
+                                alt="Facebook" class="nav-link text-dark font-weight-bold"><i
+                                    class="fab fa-facebook-f"></i></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a href="https://www.instagram.com/trekking.adventurescr" target="_blank" alt="Instagram"
+                                class="nav-link text-dark font-weight-bold"><i class="fab fa-instagram"></i></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
+                                asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
+                                asp-action="Tours">Tours</a>
                         </li>
+                        @* <li class="nav-item">
+                            <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
+                            asp-action="Index">About us</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
+                            asp-action="Index">Contact us</a>
+                            </li> *@
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="footer text-muted" role="footer">
         <div class="container">
-            &copy; 2021 - trekkingcr - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-12">
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        var tlJsHost = ((window.location.protocol == "https:") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+                        document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+                        //]]>
+                    </script>
+                    <script language="JavaScript" type="text/javascript">
+                        TrustLogo("https://www.positivessl.com/images/seals/positivessl_trust_seal_lg_222x54.png", "POSDV", "none");
+                    </script>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    &copy; @DateTime.Now.Year - <span class="font-weight-bold">TREK-KING ADVENTURES CR</span>
+                    &nbsp;
+                    <a asp-action="index" asp-controller="tours" target="_blank"><i class="fa fa-cog"></i></a>
+                    &nbsp;
+                    <a href="https://www.facebook.com/trekkingcostarica-103074814741258" target="_blank" alt="Facebook"
+                        class="text-dark font-weight-bold"><i class="fab fa-facebook-f"></i></a>
+                    &nbsp;
+                    <a href="https://www.instagram.com/trekking.adventurescr" target="_blank" alt="Instagram"
+                        class="text-dark font-weight-bold"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="col-sm-12 col-md-6 text-md-right">
+                    <span class="text-dark">Made with &#10084; by <span>
+                            <a href="https://amedevelop.com" target="_blank" class="font-weight-bold">arenal dev
+                                studio</a>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

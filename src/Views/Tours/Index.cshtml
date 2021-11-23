@@ -1,0 +1,52 @@
+@model IEnumerable<IndexTourViewModel>
+
+@{
+	ViewData["Title"] = "Tours";
+}
+
+<div class="container mt-5 pt-5">
+	<div class="row">
+		<div class="col-12">
+			<div class="card shadow-sm">
+				<div class="card-body">
+					<h4>Tour list <a asp-action="new"
+							class="btn btn-sm btn-success font-weight-bold d-block float-sm-right">Add tour</a>
+					</h4>
+
+					<div class="table-responsive">
+						<table class="table table-hover table-sm">
+							<thead>
+								<tr>
+									<th></th>
+									<th>@Html.DisplayNameFor(m => m.FirstOrDefault().nombre)</th>
+									<th>@Html.DisplayNameFor(m => m.FirstOrDefault().precio)</th>
+									<th>@Html.DisplayNameFor(m => m.FirstOrDefault().descripcionBreve)</th>
+									<th>@Html.DisplayNameFor(m => m.FirstOrDefault().tourDestacado)</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var tour in Model)
+								{
+									<tr>
+										<td style="width: 1px; white-space: nowrap;">
+											<a class="" asp-action="edit"
+											asp-route-id="@tour.id"><i class="fas fa-edit">&nbsp;</i></a>
+											<a class="text-danger" asp-action="delete"
+											asp-route-id="@tour.id"><i class="fas fa-trash"></i></a>
+										</td>
+										<td>@tour.nombre</td>
+										<td>@tour.precio</td>
+										<td>@tour.descripcionBreve</td>
+										<td style="width: 1px; white-space: nowrap;">
+											@tour.tourDestacado
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
