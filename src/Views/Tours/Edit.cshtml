@@ -9,11 +9,11 @@
         <div class="col-12">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h4>Edit tour information</h4>
-
-                    @using (Html.BeginForm("edit", "tours", FormMethod.Post, new { autocomplete = "off" })) {
+                    <h4 class="mb-4">Edit tour information</h4>
+                    <form asp-controller="tours" asp-action="edit" method="post" autocomplete = "off", enctype = "multipart/form-data">
                         @Html.AntiForgeryToken()
 						@Html.HiddenFor(model => model.id)
+						@Html.HiddenFor(model => model.rutaImagen)
 
                         <div class="row">
                             <div class="col-md-12">
@@ -22,55 +22,62 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-sm-12 col-md-10">
+                            <div class="col-sm-12 col-md-7">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.nombre)
-                                    @Html.TextBoxFor(model => model.nombre, "", new { @class = "form-control form-control-sm" })
-                                    @Html.ValidationMessageFor(model => model.nombre, "", new { @class="text-danger" })
+                                    <label asp-for="nombre"></label>
+                                    <input type="text" asp-for="nombre" class="form-control form-control-sm form-control-rounded" />
+                                    <span asp-validation-for="nombre" class="text-danger"></span>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-2">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.precio)
-                                    @Html.TextBoxFor(model => model.precio, new { @class = "form-control form-control-sm" })
-                                    @Html.ValidationMessageFor(model => model.precio, "", new { @class="text-danger"} )
+                                    <label asp-for="precio"></label>
+                                    <input type="text" asp-for="precio" class="form-control form-control-sm form-control-rounded" />
+                                    <span asp-validation-for="precio" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="imagen"></label>
+                                    <input asp-for="imagen" type="file" class="form-control-file"/>
+                                    <span asp-validation-for="imagen" class="text-danger"></span>
+                                    <img src="\@Model.rutaImagen" alt="Header picture" class="img-fluid rounded" />
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.descripcionBreve)
-                                    @Html.TextAreaFor(model => model.descripcionBreve, new { @class = "form-control form-control-sm" })
-                                    @Html.ValidationMessageFor(model => model.descripcionBreve, "", new { @class="text-danger"} )
+                                    <label asp-for="descripcionBreve"></label>
+                                    <textarea asp-for="descripcionBreve" class="form-control form-control-sm form-control-rounded" rows="4"></textarea>
+                                    <span asp-validation-for="descripcionBreve" class="text-danger"></span>
                                 </div>
                             </div>
                             
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.descripcionCompleta)
-                                    @Html.TextAreaFor(model => model.descripcionCompleta, new { @class = "form-control form-control-sm" })
-                                    @Html.ValidationMessageFor(model => model.descripcionCompleta, "", new { @class="text-danger"} )
+                                    <label asp-for="descripcionCompleta"></label>
+                                    <textarea asp-for="descripcionCompleta" class="form-control form-control-sm form-control-rounded" rows="8"></textarea>
+                                    <span asp-validation-for="descripcionCompleta" class="text-danger"></span>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.esTourDestacado)
-                                    <br />
-                                    @Html.EditorFor(model => model.esTourDestacado, "", new { @class = "form-control" })
+                                    <input asp-for="esTourDestacado" type="checkbox" class="check-box" />
+                                    <label asp-for="esTourDestacado"></label>
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <div class="btn-group btn-group-sm" role="group"
-											aria-label="Tour options">
-                                            <input value="Save" class="btn btn-sm btn-primary" type="submit" />
-                                            @Html.ActionLink("Cancel", "Index", null, null, new { @class = "btn btn-sm btn-secondary" })
-                                </div>                                
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Tour options">
+                                    <input value="Save" class="btn btn-sm btn-primary" type="submit" />
+                                    <a asp-action="Index" class="btn btn-sm btn-secondary">Cancel</a>
+                                </div>
                             </div>
                         </div>
-                    }
+                    </form>
                 </div>
             </div>
         </div>

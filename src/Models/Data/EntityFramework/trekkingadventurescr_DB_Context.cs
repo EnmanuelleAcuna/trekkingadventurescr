@@ -68,6 +68,13 @@ namespace trekkingadventurescr.Models.Data.EntityFramework
                     .HasColumnType("decimal(10,0)");
 
                 entity.Property(e => e.TourDestacado).HasColumnName("tour_destacado");
+
+                entity.Property(e => e.UrlImagenEncabezado)
+                    .IsRequired()
+                    .HasColumnName("url_imagen_encabezado")
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
             });
 
             OnModelCreatingPartial(modelBuilder);

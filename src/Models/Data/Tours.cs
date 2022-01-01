@@ -59,6 +59,7 @@ namespace trekkingadventurescr.Models.Data
 			dbModel.DescripcionCompleta = model.DescripcionCompleta;
 			dbModel.FechaRegistro = model.FechaRegistro;
 			dbModel.TourDestacado = model.EsTourDestacado;
+			dbModel.UrlImagenEncabezado = model.URLImagenEncabezado;
 
 			_dbContext.Tours.Update(dbModel);
 			_dbContext.Entry(dbModel).State = EntityState.Modified;
@@ -100,6 +101,7 @@ namespace trekkingadventurescr.Models.Data.EntityFramework
 			DescripcionCompleta = model.DescripcionCompleta;
 			FechaRegistro = model.FechaRegistro;
 			TourDestacado = model.EsTourDestacado;
+			UrlImagenEncabezado = model.URLImagenEncabezado ;
 		}
 
 		public Tour Model()
@@ -112,7 +114,8 @@ namespace trekkingadventurescr.Models.Data.EntityFramework
 				DescripcionBreve = this.DescripcionBreve,
 				DescripcionCompleta = this.DescripcionCompleta,
 				FechaRegistro = this.FechaRegistro,
-				EsTourDestacado = TourDestacado
+				EsTourDestacado = TourDestacado,
+				URLImagenEncabezado = UrlImagenEncabezado
 			};
 
 			return model;

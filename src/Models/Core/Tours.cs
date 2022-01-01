@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace trekkingadventurescr.Models.Core
 {
@@ -24,7 +25,13 @@ namespace trekkingadventurescr.Models.Core
 			return tour;
 		}
 
-		public bool Add(Tour model, string filePath)
+		public IEnumerable<Tour> GetAllFeatured(int quantity)
+		{
+			IEnumerable<Tour> featuredTours = GetAll().Where(t => t.EsTourDestacado).Take(quantity);
+			return featuredTours;
+		}
+
+		public bool Add(Tour model)
 		{
 			bool added = _tours.Add(model);
 			return added;
@@ -42,6 +49,7 @@ namespace trekkingadventurescr.Models.Core
 			toBeUpdatedModel.DescripcionBreve = model.DescripcionBreve;
 			toBeUpdatedModel.DescripcionCompleta = model.DescripcionCompleta;
 			toBeUpdatedModel.EsTourDestacado = model.EsTourDestacado;
+			toBeUpdatedModel.URLImagenEncabezado = model.URLImagenEncabezado;
 
 			bool updated = _tours.Update(toBeUpdatedModel);
 			return updated;

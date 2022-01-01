@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<TourViewModel>
+
+@{
   ViewData["Title"] = "Home";
 }
 
@@ -95,52 +97,41 @@
     </div>
   </div>
 
-  <div class="row text-center">
-    <div class="col-12">
+  <div class="row">
+    <div class="col-12 text-center">
       <h2 class="title text-dark">Featured tours!</h2>
-      <p class="lead subtitle">Check out our best tours.</p>
+      <p class="lead subtitle">Check out our best tours or <a class="btn btn-sm btn-outline-dark font-weight-bold"
+          asp-controller="Home" asp-action="Tours" role="button">See all our tours</a></p>
     </div>
 
     <div class="col-12">
       <div class="card-deck">
-        <div class="card bg-light border-0 box-shadow">
-          <img src="~/images/web_optimized/photo_23.jpg" alt="Tour image" class="card-img-top img img-fluid rounded" />
-          <div class="card-body">
-            <h4 class="card-title pricing-card-title text-dark">Catarata Rio Agrio</h4>
-            @* <h1 class="card-title pricing-card-title text-info">$ 565</h1> *@
-            <p class="lead">
-              Este es un súper tour.
-            </p>
-          </div>
-        </div>
 
-        <div class="card bg-light border-0 box-shadow">
-          <img src="~/images/web_optimized/photo_38.jpg" alt="Tour image" class="card-img-top img img-fluid rounded" />
-          <div class="card-body">
-            <h4 class="card-title pricing-card-title text-dark">Parque Nacional Manuel Antonio</h4>
-            @* <h1 class="card-title pricing-card-title text-info">$15</h1> *@
-            <p class="lead">
-              Este es un tour genial.
-            </p>
-          </div>
-        </div>
+        @foreach (var tour in Model)
+        {
+          <div class="card bg-light border-0 box-shadow">
+            <img src="\@tour.rutaImagen" alt="Tour image" class="card-img-top img img-fluid rounded-0" />
+            <div class="card-body pb-0">
+              <a data-toggle="collapse" href="#collapse_@tour.id" role="button" aria-expanded="false"
+              aria-controls="collapse_@tour.id">
+                <h4 class="card-title pricing-card-title text-dark">@tour.nombre</h4>
 
-        <div class="card bg-light border-0 box-shadow">
-          <img src="~/images/web_optimized/photo_37.jpg" alt="Tour image" class="card-img-top img img-fluid rounded" />
-          <div class="card-body">
-            <h4 class="card-title pricing-card-title text-dark">Bahía Ballena</h4>
-            @* <h1 class="card-title pricing-card-title text-info">$29</h1> *@
-            <p class="lead">
-              Este es un tour balato.
-            </p>
+                @* <h1 class="card-title pricing-card-title text-info">$ 565</h1> *@
+                <p class="lead text-dark mb-0">@tour.descripcionBreve</p>
+                <i class="fa fa-caret-down"></i>
+              </a>
+            </div>
+
+            <div id="collapse_@tour.id" class="collapse">
+              <div class="card-body bg-white border-primary">
+                <h6 class="font-weight-bold text-dark">Full info</h6>
+                <div class="mas">@tour.descripcionCompleta</div>
+              </div>
+            </div>
           </div>
-        </div>
+        }
+
       </div>
-    </div>
-
-    <div class="col-12 mt-2">
-      <a class="btn btn-lg btn-outline-dark font-weight-normal rounded" asp-controller="Home" asp-action="Tours"
-        role="button">See all our tours</a>
     </div>
   </div>
 </div>

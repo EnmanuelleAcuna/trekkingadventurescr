@@ -1,19 +1,15 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using trekkingadventurescr.Models.Data.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Http;
+using trekkingadventurescr.Models;
+using trekkingadventurescr.Models.Data.Identity;
 
 namespace trekkingadventurescr
 {
@@ -30,17 +26,41 @@ namespace trekkingadventurescr
 		public void ConfigureServices(IServiceCollection services)
 		{
 			var connectionString = "server=217.71.206.171;user=emanuel;password=Amelie2406.;database=trekkingadventurescr";
-			// var serverVersion = new MySqlServerVersion(new Version(8, 0, 27));
 
-			services.AddDbContext<trekkingadventurescr_DB_Context>(
-				dbContextOptions => dbContextOptions
-					.UseMySql(connectionString)
-			// The following three options help with debugging, but should
-			// be changed or removed for production.
-			// .LogTo(Console.WriteLine, LogLevel.Information)
-			// .EnableSensitiveDataLogging()
-			// .EnableDetailedErrors()
-			);
+			services.AddDbContext<trekkingadventurescr_DB_Context>(dbContextOptions => dbContextOptions.UseMySql(connectionString));
+
+			// ASP.Net Identity
+			services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(connectionString));
+
+			services.AddIdentity<User, Role>(options =>
+			{
+				options.User.RequireUniqueEmail = true;
+				options.SignIn.RequireConfirmedAccount = false;
+				options.Password.RequiredLength = 6;
+			})
+			.AddEntityFrameworkStores<ApplicationDbContext>()
+			.AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
+
+			services.Configure<CookiePolicyOptions>(options =>
+			{
+				options.CheckConsentNeeded = context => false;
+				options.MinimumSameSitePolicy = SameSiteMode.Lax;
+			});
+
+			services.Configure<CookieOptions>(options =>
+			{
+				options.SameSite = SameSiteMode.Strict;
+				options.Secure = true;
+			});
+
+			services.ConfigureApplicationCookie(options =>
+			{
+				options.Cookie.Name = ".trekkingadventurescr.AspNetCore";
+				options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+				options.SlidingExpiration = true;
+				options.LoginPath = "/Account/LogIn";
+				options.Cookie.SameSite = SameSiteMode.Strict;
+			});
 
 			// services.AddControllersWithViews();
 
@@ -53,6 +73,7 @@ namespace trekkingadventurescr
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseDatabaseErrorPage();
 			}
 			else
 			{
@@ -61,10 +82,20 @@ namespace trekkingadventurescr
 				app.UseHsts();
 			}
 
+			// app.UseStatusCodePages();
+
+			// app.UseStatusCodePagesWithRedirects("/Home/Error");
+
 			app.UseHttpsRedirection();
+
 			app.UseStaticFiles();
+
 			app.UseCookiePolicy();
+
 			app.UseRouting();
+
+			app.UseAuthentication();
+
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>

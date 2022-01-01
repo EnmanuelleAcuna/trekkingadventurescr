@@ -11,5 +11,6 @@ namespace trekkingadventurescr.Models
 		public string DescripcionCompleta { get; set; }
 		public DateTime FechaRegistro { get; set; }
 		public bool EsTourDestacado { get; set; }
+		public string URLImagenEncabezado { get; set; }
 	}
 }

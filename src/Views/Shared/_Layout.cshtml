@@ -8,6 +8,16 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/fontawesome/dist/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9XFK224LGV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-9XFK224LGV');
+    </script>
 </head>
 
 <body>
@@ -23,6 +33,7 @@
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
@@ -30,11 +41,11 @@
                                 alt="Facebook" class="nav-link text-dark font-weight-bold"><i
                                     class="fab fa-facebook-f"></i></a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a href="https://www.instagram.com/trekking.adventurescr" target="_blank" alt="Instagram"
                                 class="nav-link text-dark font-weight-bold"><i class="fab fa-instagram"></i></a>
                         </li>
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
                                 asp-action="Index">Home</a>
                         </li>
@@ -42,14 +53,10 @@
                             <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
                                 asp-action="Tours">Tours</a>
                         </li>
-                        @* <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
-                            asp-action="Index">About us</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link text-dark font-weight-bold" asp-area="" asp-controller="Home"
-                            asp-action="Index">Contact us</a>
-                            </li> *@
+                                asp-action="About">About us</a>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -145,6 +145,14 @@ section.cover {
   font-size: 2rem;
 }
 
+.form-control-rounded {
+border-radius: 1rem;
+}
+
+.mas {
+    white-space: pre-wrap;
+}
+
 @keyframes animate {
   0% {
     background-position: 0;

@@ -51,7 +51,7 @@ namespace trekkingadventurescr.Models.ViewModels
 		[Display(Name = "Featured tour")]
 		public bool esTourDestacado { get; set; }
 
-		[Display(Name = "Header photo")]
+		[Display(Name = "Header picture")]
 		[Required]
 		public IFormFile imagen { get; set; }
 
@@ -83,6 +83,7 @@ namespace trekkingadventurescr.Models.ViewModels
 			descripcionBreve = model.DescripcionBreve;
 			descripcionCompleta = model.DescripcionCompleta;
 			esTourDestacado = model.EsTourDestacado;
+			rutaImagen = model.URLImagenEncabezado;
 		}
 
 		public int id { get; set; }
@@ -106,6 +107,11 @@ namespace trekkingadventurescr.Models.ViewModels
 		[Display(Name = "Featured tour")]
 		public bool esTourDestacado { get; set; }
 
+		[Display(Name = "New header picture")]
+		public IFormFile imagen { get; set; }
+
+		public string rutaImagen { get; set; }
+
 		public Tour Model()
 		{
 			Tour model = new Tour
@@ -116,10 +122,40 @@ namespace trekkingadventurescr.Models.ViewModels
 				DescripcionBreve = descripcionBreve,
 				DescripcionCompleta = descripcionCompleta,
 				FechaRegistro = DateTime.Now,
-				EsTourDestacado = esTourDestacado
+				EsTourDestacado = esTourDestacado,
+				URLImagenEncabezado = rutaImagen
 			};
 
 			return model;
 		}
+	}
+
+	public class TourViewModel
+	{
+		public TourViewModel(Tour model)
+		{
+			id = model.Id;
+			nombre = model.Nombre;
+			precio = model.Precio.ToString("C");
+			descripcionBreve = model.DescripcionBreve;
+			descripcionCompleta = model.DescripcionCompleta;
+			rutaImagen = model.URLImagenEncabezado;
+		}
+
+		public int id { get; set; }
+
+		[Display(Name = "Name")]
+		public string nombre { get; set; }
+
+		[Display(Name = "Price")]
+		public string precio { get; set; }
+
+		[Display(Name = "Description")]
+		public string descripcionBreve { get; set; }
+
+		[Display(Name = "Description")]
+		public string descripcionCompleta { get; set; }
+
+		public string rutaImagen { get; set; }
 	}
 }

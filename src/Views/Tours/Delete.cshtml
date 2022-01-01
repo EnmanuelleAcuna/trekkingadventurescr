@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h4>Delete tour confirmation</h4>
 
-                    @using (Html.BeginForm("delete", "tours", FormMethod.Post, new { autocomplete = "off" })) {
+                    <form asp-controller="tours" asp-action="delete" method="post" autocomplete = "off">
                         @Html.AntiForgeryToken()
 						@Html.HiddenFor(model => model.id)
 
@@ -25,20 +25,18 @@
                             <div class="col-sm-12 col-md-10">
                                 <div class="form-group">
                                     <span>Are you sure you want to delete </span>
-                                    @Html.DisplayFor(model => model.nombre, "", new { @class = "form-control form-control-sm" })
-                                    ?
+                                    @Html.DisplayFor(model => model.nombre, "", new { @class = "form-control form-control-sm" })?
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <div class="btn-group btn-group-sm" role="group"
-											aria-label="Tour options">
-                                            <input value="Delete" class="btn btn-sm btn-danger" type="submit" />
-                                            @Html.ActionLink("Cancel", "Index", null, null, new { @class = "btn btn-sm btn-secondary" })
-                                </div>                                
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Tour options">
+                                    <input value="Delete" class="btn btn-sm btn-danger" type="submit" />
+                                    @Html.ActionLink("Cancel", "Index", null, null, new { @class = "btn btn-sm btn-secondary" })
+                                </div>
                             </div>
                         </div>
-                    }
+                    </form>
                 </div>
             </div>
         </div>

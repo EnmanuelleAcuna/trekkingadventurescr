@@ -6,29 +6,35 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using trekkingadventurescr.Models;
+using trekkingadventurescr.Models.Core;
+using trekkingadventurescr.Models.ViewModels;
 
 namespace trekkingadventurescr.Controllers
 {
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly Tours _tours;
 
 		public HomeController(ILogger<HomeController> logger)
 		{
 			_logger = logger;
+			_tours = new Tours();
 		}
 
 		public IActionResult Index()
 		{
-			return View();
+			IEnumerable<TourViewModel> featuredTours = _tours.GetAllFeatured(3).Select(t => new TourViewModel(t)).ToList();
+			return View(featuredTours);
 		}
 
 		public IActionResult Tours()
 		{
-			return View();
+			IEnumerable<TourViewModel> tours = _tours.GetAll().Select(t => new TourViewModel(t)).ToList();
+			return View(tours);
 		}
 
-		public IActionResult Privacy()
+		public IActionResult About()
 		{
 			return View();
 		}

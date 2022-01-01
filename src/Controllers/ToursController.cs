@@ -1,5 +1,5 @@
 ﻿using System.Collections.Specialized;
-using System.Text;
+using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +12,11 @@ using trekkingadventurescr.Models.Core;
 using trekkingadventurescr.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace trekkingadventurescr.Controllers
 {
+	[Authorize]
 	public class ToursController : Controller
 	{
 		private readonly ILogger<ToursController> _logger;
@@ -28,7 +30,7 @@ namespace trekkingadventurescr.Controllers
 			_tours = new Tours();
 		}
 
-		public IActionResult Index()
+		public async Task<IActionResult> Index()
 		{
 			IEnumerable<Tour> tourList = _tours.GetAll();
 			IEnumerable<IndexTourViewModel> viewModelData = tourList.Select(t => new IndexTourViewModel(t)).ToList();
@@ -36,13 +38,14 @@ namespace trekkingadventurescr.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult New()
+		public async Task<IActionResult> New()
 		{
 			return View();
 		}
 
 		[HttpPost]
-		public IActionResult New(NewTourViewModel viewModelData)
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> New(NewTourViewModel viewModelData)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -54,9 +57,9 @@ namespace trekkingadventurescr.Controllers
 			{
 				Tour model = viewModelData.Model();
 
-                string filePath = uploadFile(viewModelData.imagen);
+                await uploadFile(model, viewModelData.imagen);
 
-				bool added = _tours.Add(model, filePath);
+				bool added = _tours.Add(model);
 
 				if (added)
 				{
@@ -76,7 +79,7 @@ namespace trekkingadventurescr.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Edit(string id)
+		public async Task<IActionResult> Edit(string id)
 		{
 			if (string.IsNullOrEmpty(id))
 			{
@@ -102,7 +105,8 @@ namespace trekkingadventurescr.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Edit(EditDeleteTourViewModel viewModelData)
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(EditDeleteTourViewModel viewModelData)
 		{
 			if (!ModelState.IsValid)
 			{
@@ -113,6 +117,8 @@ namespace trekkingadventurescr.Controllers
 			try
 			{
 				Tour model = viewModelData.Model();
+
+				await uploadFile(model, viewModelData.imagen);
 
 				bool updated = _tours.Update(model);
 
@@ -126,15 +132,16 @@ namespace trekkingadventurescr.Controllers
 					throw new Exception("The updated method returned false.");
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
 				ModelState.AddModelError("", "An error occured while updating the data.");
+				ModelState.AddModelError("", ex.Message);
 				return View(viewModelData);
 			}
 		}
 
 		[HttpGet]
-		public IActionResult Delete(string id)
+		public async Task<IActionResult> Delete(string id)
 		{
 			if (string.IsNullOrEmpty(id))
 			{
@@ -160,7 +167,8 @@ namespace trekkingadventurescr.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Delete(EditDeleteTourViewModel viewModelData)
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Delete(EditDeleteTourViewModel viewModelData)
 		{
 			if (viewModelData is null || viewModelData.id == 0)
 			{
@@ -189,25 +197,28 @@ namespace trekkingadventurescr.Controllers
 			}
 		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-
-		private string uploadFile(IFormFile file)
+		private async Task uploadFile(Tour model, IFormFile file)
 		{
             try
             {
-				string fullFileNamePath = System.IO.Path.Combine(_environment.ContentRootPath, "uploads", file.FileName);
+				if (file != null) {
+					string extension = Path.GetExtension(file.FileName);
+					string name = Guid.NewGuid().ToString();
+					string fileName = string.Format("{0}{1}", name, extension);
 
-				file.CopyTo(new System.IO.FileStream(fullFileNamePath, System.IO.FileMode.Create));
+					string absoluteFolderPath = "wwwroot/images/uploads";
+					string absoluteFileNamePath = Path.Combine(_environment.ContentRootPath, absoluteFolderPath, fileName);
+					await file.CopyToAsync(new FileStream(absoluteFileNamePath, FileMode.Create));
 
-                return fullFileNamePath;
+					string relativeFolderPath = "images/uploads";
+					string relativeFileNamePath = Path.Combine(relativeFolderPath, fileName);
+					model.URLImagenEncabezado = relativeFileNamePath;
+				}
 			}
-            catch (System.Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Error while saving the file.");;
+                throw ex;
+                // throw new Exception("Error while saving the file.");
             }
 		}
 	}
